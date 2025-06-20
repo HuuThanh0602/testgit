@@ -1,0 +1,112 @@
+[
+   {
+     "question": "Những phát biểu nào sau đây là đúng về cấu trúc đồng bộ hoá Monitor? <img src='img/question31.png' alt='Cấu trúc Monitor'>",
+     "options": [
+       "Tại một thời điểm, có thể có nhiều hơn 1 luồng chiếm giữ monitor (hay 'ở bên trong monitor')",
+       "Monitor hướng đối tượng: mỗi đối tượng, trong các ngôn ngữ lập trình hướng đối tượng, mặc định đi kèm với một monitor",
+       "Trong một thời điểm, chỉ có nhiều nhất một luồng chiếm giữ monitor (hay 'ở bên trong monitor')",
+       "Monitor KHÔNG hỗ trợ khái niệm biến điều kiện",
+       "Mỗi biến điều kiện X, được hỗ trợ bởi monitor, định nghĩa các thao tác như: wait, notify/signal, notifyAll/broadcast"
+     ],
+     "answer": [1, 2, 4],
+     "explanation": "Monitor đảm bảo chỉ một luồng chiếm giữ cùng lúc, hỗ trợ biến điều kiện với các thao tác wait, notify, notifyAll, và liên kết với đối tượng trong lập trình hướng đối tượng."
+   },
+   {
+     "question": "Sự khác nhau giữa hai kiểu monitor (kiểu Hoare và kiểu Mesa), như hình minh họa dưới đây, là gì? <img src='img/question32.png' alt='Monitor Hoare vs Mesa'>",
+     "options": [
+       "Với monitor kiểu Hoare, các luồng khi được đánh thức dậy sẽ được chuyển sang hàng đợi s; trong khi với monitor kiểu Mesa, các luồng sau khi được đánh thức dậy sẽ được chuyển về hàng đợi e.",
+       "Với monitor kiểu Mesa (signal-and-continue monitors), khi một luồng đang trong monitor và gọi notify() để đánh thức luồng khác, luồng gọi này sẽ bị tạm dừng và mất quyền chiếm giữ monitor ngay lập tức",
+       "Với monitor kiểu Hoare (signal-and-urgent-wait monitors), khi một luồng đang trong monitor và gọi notify() để đánh thức luồng khác, luồng gọi này sẽ KHÔNG bị mất quyền chiếm giữ monitor ngay, mà nó vẫn tiếp tục công việc của nó cho đến khi hoàn thành và ra khỏi monitor thì luồng được đánh thức lúc này mới có thể chiếm giữ monitor",
+       "Không cần thiết phải có hàng đợi s (cho các luồng được đánh thức) trong monitor kiểu Mesa"
+     ],
+     "answer": [0, 3],
+     "explanation": "Monitor Hoare chuyển luồng đánh thức sang hàng đợi s, trong khi Mesa không cần hàng đợi s và luồng gọi notify mất quyền ngay."
+   },
+   {
+     "question": "Xét cài đặt của một giải pháp cho bài toán Người đọc - Người ghi, sử dụng cấu trúc đồng bộ hoá Semaphore, như Hình dưới. Mục đích của dòng lệnh if (numberReaders == 1) wlock.P() được gọi bởi một luồng đọc là gì? <img src='img/question33.png' alt='Semaphore Reader-Writer'>",
+     "options": [
+       "Đánh thức một luồng đọc bất kỳ đang bị khóa dậy để thực hiện tiếp công việc của nó",
+       "Nếu đây là luồng đọc đầu tiên muốn đi vào khu vực quan trọng thì sẽ chuyển semaphore nhị phân wlock sang trạng thái không sẵn sàng để chặn các luồng ghi phía sau đi vào khu vực quan trọng",
+       "Đánh thức một luồng ghi bất kỳ đang bị khóa dậy để thực hiện tiếp công việc của nó",
+       "Nếu đây là luồng đọc đầu tiên muốn đi vào khu vực quan trọng thì sẽ chuyển semaphore nhị phân wlock sang trạng thái không sẵn sàng để chặn các luồng đọc phía sau đi vào khu vực quan trọng"
+     ],
+     "answer": [1],
+     "explanation": "wlock.P() chặn luồng ghi khi có luồng đọc đầu tiên, đảm bảo loại trừ lẫn nhau với ghi."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG về Socket được sử dụng để xây dựng ứng dụng phân tán? <img src='img/question34.png' alt='Cấu trúc Socket'>",
+     "options": [
+       "Socket là một điểm cuối của liên kết truyền thông hai chiều giữa hai tiến trình đang hoạt động trên mạng truyền thông",
+       "Lập trình Socket CHỈ có thể dựa trên giao thức UDP (Universal Datagram Protocol)",
+       "Socket gồm có 2 thành phần: Địa chỉ IP và Cổng",
+       "Socket cung cấp một giao diện ở mức thấp cho việc xây dựng các ứng dụng phân tán"
+     ],
+     "answer": [0, 2, 3],
+     "explanation": "Socket là điểm cuối hai chiều, bao gồm IP và cổng, và là giao diện cấp thấp, không giới hạn ở UDP."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG về việc sử dụng Socket trên giao thức UDP, hay Data Socket, để xây dựng các ứng dụng phân tán? <img src='img/question35.png' alt='Socket UDP'>",
+     "options": [
+       "Hai tiến trình gửi và nhận có thể KHÔNG cần hoạt động tại thời điểm truyền thông điệp",
+       "Tiến trình gửi KHÔNG cần phải biết địa chỉ IP và cổng của tiến trình nhận",
+       "Tiến trình nhận, khi chờ nhận dữ liệu từ tiến trình gửi, sẽ bị chặn lại (block) để chờ nhận đủ dữ liệu thì mới được thực thi tiếp",
+       "Tiến trình gửi không cần phải đảm bảo thông điệp đến phía tiến trình nhận đầy đủ và đúng thứ tự (i.e., thông điệp gửi đi sau có thể đến trước)"
+     ],
+     "answer": [0, 3],
+     "explanation": "UDP không yêu cầu đồng thời và không đảm bảo thứ tự hoặc toàn vẹn dữ liệu."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG về việc sử dụng Socket trên giao thức TCP (hay Stream Socket) để xây dựng các ứng dụng phân tán? <img src='img/question36.png' alt='Socket TCP'>",
+     "options": [
+       "Các gói tin được truyền đi tuần tự và phải có xác nhận trả về",
+       "Hai tiến trình gửi và nhận bắt buộc phải hoạt động tại thời điểm truyền thông điệp",
+       "Hai tiến trình gửi và nhận có thể KHÔNG cần hoạt động tại thời điểm truyền thông điệp",
+       "Tiến trình gửi PHẢI biết địa chỉ IP và cổng của tiến trình nhận"
+     ],
+     "answer": [0, 1, 3],
+     "explanation": "TCP đảm bảo tuần tự, yêu cầu đồng thời, và cần địa chỉ IP/cổng của đối phương."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG về hai giao thức truyền thông điệp: UDP và TCP?",
+     "options": [
+       "TCP là một giao thức kết nối đáng tin cậy, tức là không bị mất gói tin trên đường truyền",
+       "Các gói tin được gửi theo giao thức UDP có thể bị mất trên đường truyền",
+       "TCP KHÔNG đảm bảo thứ tự nhận được của các gói tin giống như thứ tự đã gửi",
+       "Các gói tin được gửi theo giao thức UDP KHÔNG được bảo đảm nhận được theo thứ tự đã gửi"
+     ],
+     "answer": [0, 1, 3],
+     "explanation": "TCP đảm bảo không mất gói tin và thứ tự, trong khi UDP không đảm bảo cả hai."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG khi khái quát về các hệ thống phân tán?",
+     "options": [
+       "Các tiến trình trong một hệ thống phân tán giao tiếp với nhau bằng cách gửi và nhận thông điệp qua mạng truyền thông",
+       "Luôn tồn tại tài nguyên toàn cục giữa các tiến trình hoạt động trên các máy tính trong một hệ thống phân tán",
+       "Không tồn tại tài nguyên toàn cục giữa các tiến trình hoạt động trên các máy tính trong một hệ thống phân tán",
+       "Các tiến trình trong một hệ thống phân tán luôn biết được trạng thái toàn cục của hệ thống tại bất kỳ thời điểm nào"
+     ],
+     "answer": [0, 2],
+     "explanation": "Hệ thống phân tán giao tiếp qua thông điệp và không có tài nguyên toàn cục."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là đúng về kỹ thuật RMI (Remote Method Invocations) được sử dụng để xây dựng các ứng dụng phân tán? <img src='img/question39.png' alt='Cấu trúc RMI'>",
+     "options": [
+       "Hai thành phần đại diện stub và skeleton KHÔNG bắt buộc phải được tạo ra khi thực hiện một lời gọi từ xa",
+       "Kỹ thuật này đòi hỏi phải có 3 kiểu tiến trình: Tiến trình máy khách, Tiến trình máy chủ và RMI Registry",
+       "Tiến trình gửi không cần biết đến vị trí thực sự của đối tượng từ xa",
+       "Mỗi lời gọi từ xa luôn được thực hiện thông qua hai thành phần đại diện: stub ở phía client và skeleton ở phía server"
+     ],
+     "answer": [1, 2, 3],
+     "explanation": "RMI yêu cầu stub, skeleton, và RMI Registry, ẩn vị trí đối tượng từ xa."
+   },
+   {
+     "question": "Xét cấu trúc chung của một chương trình MPI như hình bên. Các lời gọi truyền thông điệp có thể được thực hiện ở khu vực nào sau đây? <img src='img/question40.png' alt='Cấu trúc MPI'>",
+     "options": [
+       "Trong khu vực mã tuần tự (serial code)",
+       "Trong khu vực mã song song (parallel code), được đánh dấu bằng các câu lệnh khởi tạo và kết thúc môi trường MPI",
+       "Ở bất kỳ khu vực nào, tuỳ ý"
+     ],
+     "answer": [1],
+     "explanation": "Lời gọi MPI chỉ hợp lệ trong khu vực mã song song được khởi tạo bởi MPI."
+   }
+ ]

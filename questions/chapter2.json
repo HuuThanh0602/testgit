@@ -1,0 +1,116 @@
+[
+   {
+     "question": "Xét thuật toán trong Hình dưới đây để giải quyết bài toán loại trừ lẫn nhau trong một chương trình đồng thời có 2 luồng cùng thực thi. Những kịch bản thực thi nào sau đây của 4 câu lệnh (được đánh số màu đỏ), trong 2 phương thức requestCS(), sẽ khiến cho thuật toán này vi phạm điều kiện loại trừ lẫn nhau, tức là cho phép cả 2 luồng T0 và T1 đều có thể cùng đi vào khu vực quan trọng? <img src='img/question11.png' alt='Thuật toán loại trừ lẫn nhau'>",
+     "options": [
+       "3->1->4->2",
+       "1->3->4->2",
+       "3->4->1->2",
+       "3->1->2->4",
+       "1->2->3->4",
+       "1->3->2->4"
+     ],
+     "answer": [0, 1, 3, 5],
+     "explanation": "Các kịch bản 3->1->4->2, 1->3->4->2, 3->1->2->4, và 1->3->2->4 cho phép cả hai luồng vào khu vực quan trọng cùng lúc, vi phạm loại trừ lẫn nhau."
+   },
+   {
+     "question": "Xét thuật toán trong Hình dưới đây để giải quyết bài toán loại trừ lẫn nhau trong một hệ thống đồng thời có 2 luồng cùng hoạt động. Những kịch bản nào sau đây là đúng cho thứ tự đi vào khu vực quan trọng của hai luồng T0, T1 nếu hệ thống sử dụng thuật toán này? <img src='img/question12.png' alt='Thuật toán thứ tự đi vào CS'>",
+     "options": [
+       "T1, T0, T1, T0, T1, T0",
+       "T0, T1, T1, T0, T0, T1",
+       "T1, T1, T1, T0, T0, T0",
+       "T0, T1, T0, T1, T0, T1"
+     ],
+     "answer": [0, 3],
+     "explanation": "Các kịch bản T1, T0, T1, T0, T1, T0 và T0, T1, T0, T1, T0, T1 tuân thủ thứ tự luân phiên, đảm bảo loại trừ lẫn nhau."
+   },
+   {
+     "question": "Xét thuật toán trong Hình dưới đây để giải quyết bài toán loại trừ lẫn nhau trong một hệ thống đồng thời có 2 luồng cùng hoạt động. Những kịch bản thực thi nào của 4 câu lệnh được đánh dấu màu đỏ, trong 2 phương thức requestCS(), sẽ khiến cho chương trình rơi vào trạng thái khóa chết (deadlock)? <img src='img/question13.png' alt='Thuật toán deadlock'>",
+     "options": [
+       "3->4->2->1",
+       "1->2->3->4",
+       "3->1->2->4",
+       "1->3->2->4",
+       "3->1->4->2",
+       "1->3->4->2"
+     ],
+     "answer": [2, 3, 4, 5],
+     "explanation": "Các kịch bản 3->1->2->4, 1->3->2->4, 3->1->4->2, và 1->3->4->2 dẫn đến deadlock do luồng bị chặn lẫn nhau."
+   },
+   {
+     "question": "Trong bài toán loại trừ lẫn nhau, khu vực quan trọng CS (Critical Section) của một luồng là gì?",
+     "options": [
+       "Phần đoạn mã của luồng cần được thực thi một cách nguyên tử (hay được thực thi một cách trọn vẹn, không bị can thiệp bởi luồng khác)",
+       "Phần đoạn mã thực hiện một tính toán quan trọng của luồng",
+       "Phần đoạn mã của luồng chia sẻ với một luồng khác"
+     ],
+     "answer": [0],
+     "explanation": "Khu vực quan trọng là phần mã cần được thực thi nguyên tử để tránh xung đột giữa các luồng."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG về các phương thức trong giao diện Lock, dùng để giải quyết bài toán loại trừ lẫn nhau trong một chương trình đồng thời? <img src='img/question15.png' alt='Giao diện Lock'>",
+     "options": [
+       "Phương thức requestCS() được gọi SAU khi một luồng muốn đi vào khu vực quan trọng",
+       "Phương thức releaseCS() được gọi TRƯỚC khi một luồng đi ra khỏi khu vực quan trọng",
+       "Phương thức requestCS() có mục đích kiểm tra điều kiện đi vào khu vực quan trọng của luồng gọi đã được thoả mãn hay chưa",
+       "Phương thức releaseCS() có mục đích khôi phục / thay đổi trạng thái của hệ thống để cho phép các luồng khác đi vào khu vực quan trọng"
+     ],
+     "answer": [2, 3],
+     "explanation": "Phương thức requestCS() kiểm tra điều kiện, và releaseCS() khôi phục trạng thái để các luồng khác tiếp tục."
+   },
+   {
+     "question": "Nhược điểm chung của các thuật toán Peterson, Bakery khi được sử dụng để giải quyết bài toán loại trừ lẫn nhau trong các chương trình đồng thời là gì?",
+     "options": [
+       "Không có nhược điểm gì",
+       "Các luồng phải liên tục kiểm tra xem điều kiện đi vào khu vực quan trọng đã được thoả mãn hay chưa, thông qua vòng lặp. Điều này dẫn đến gây lãng phí chu trình CPU",
+       "Sử dụng các biến chia sẻ, dẫn đến có thể mất mát dữ liệu"
+     ],
+     "answer": [1],
+     "explanation": "Các thuật toán này sử dụng vòng lặp để kiểm tra điều kiện, gây lãng phí tài nguyên CPU."
+   },
+   {
+     "question": "Xét đoạn mã giả cho thuật toán Bakery của Lamport cho bài toán loại trừ lẫn nhau trong các chương trình đồng thời như hình dưới. Các phát biểu nào sau đây là đúng? <img src='img/question17.png' alt='Thuật toán Bakery'>",
+     "options": [
+       "Điều kiện để một luồng i có thể đi vào khu vực quan trọng là: 1) không có luồng j # i nào thực hiện bước lấy số; VÀ 2) tồn tại k #i sao cho (number[k], k) < (number[i], i)",
+       "Điều kiện để một luồng i có thể đi vào khu vực quan trọng là: 1) không có luồng j # i nào thực hiện bước lấy số; VÀ 2) (number[k], k) > (number[i], i), với mọi k # i",
+       "Thuật toán CHỈ được triển khai trên chương trình đồng thời với số lượng luồng bằng 2",
+       "Thuật toán có thể được triển khai trên chương trình đồng thời với số lượng luồng bất kỳ lớn hơn 1"
+     ],
+     "answer": [1, 3],
+     "explanation": "Thuật toán Bakery yêu cầu (number[k], k) > (number[i], i) cho mọi k # i, và hỗ trợ số lượng luồng bất kỳ."
+   },
+   {
+     "question": "Cấu trúc đồng bộ Semaphore được đề xuất bởi E. Dijkstra gồm có những thành phần nào sau đây?",
+     "options": [
+       "Hàng đợi chứa các luồng đang thực thi",
+       "Hàng đợi chứa các luồng bị chặn/khóa thực thi",
+       "Thao tác P() được thực thi nguyên tử: dùng để thêm luồng gọi vào hàng đợi nếu semaphore không ở trạng thái sẵn sàng",
+       "Thao tác V() được thực thi nguyên tử: dùng để đánh thức một luồng bất kỳ trong hàng đợi",
+       "Biến value (kiểu boolean hoặc kiểu int) để quyết định trạng thái của semaphore"
+     ],
+     "answer": [1, 4],
+     "explanation": "Semaphore gồm hàng đợi luồng bị chặn và biến value để quản lý trạng thái."
+   },
+   {
+     "question": "Semaphore đếm (Counting Semaphore) và Semaphore nhị phân (Binary Semaphore) khác nhau ở những điểm nào sau đây?",
+     "options": [
+       "Semaphore đếm cho phép nhiều luồng cùng ở trong khu vực quan trọng (CS) trong một thời điểm, trong khi Semaphore nhị phân chỉ cho phép nhiều nhất 1 luồng ở trong CS (tức là loại trừ lần nhau)",
+       "Không có hàng đợi các luồng bị khóa trong Semaphore đếm",
+       "Không có thao tác P() trong Semaphore đếm",
+       "Không có thao tác V() trong Semaphore đếm",
+       "Biến value trong Semaphore đếm có kiểu int, không phải kiểu boolean như trong Semaphore nhị phân"
+     ],
+     "answer": [0, 4],
+     "explanation": "Semaphore đếm cho phép nhiều luồng và dùng biến value kiểu int, trong khi Semaphore nhị phân chỉ cho 1 luồng và thường dùng boolean hoặc int giới hạn."
+   },
+   {
+     "question": "Trong thuật toán của Peterson cho bài toán loại trừ lẫn nhau, luồng i được đi vào khu vực quan trọng của nó khi nào? <img src='img/question20.png' alt='Thuật toán Peterson'>",
+     "options": [
+       "Chỉ cần luồng i muốn đi vào khu vực quan trọng là sẽ được đi vào khu vực quan trọng mà không cần quan tâm đến luồng kia",
+       "Khi luồng (1-i) muốn đi vào khu vực quan trọng VÀ hiện tại đang đến lượt (turn) ưu tiên của luồng (1-i)",
+       "Chỉ cần đến lượt (turn) ưu tiên của luồng i là được",
+       "Khi luồng (1-i) không muốn đi vào khu vực quan trọng HOẶC hiện tại không phải lượt (turn) ưu tiên của luồng (1-i)"
+     ],
+     "answer": [3],
+     "explanation": "Luồng i đi vào khi luồng khác không muốn hoặc không phải lượt ưu tiên của luồng kia."
+   }
+ ]

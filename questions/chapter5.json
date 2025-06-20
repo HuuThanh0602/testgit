@@ -1,0 +1,112 @@
+[
+   {
+     "question": "MPI hỗ trợ những kiểu truyền thông điệp nào sau đây?",
+     "options": [
+       "Truyền thông điểm tới điểm (Point to Point communication)",
+       "Truyền thông đa điểm (Collective communication), bao gồm: 1-to-many, many-to-1, many-to-many"
+     ],
+     "answer": [1, 2],
+     "explanation": "MPI (Message Passing Interface) hỗ trợ cả truyền thông điểm tới điểm (gửi thông điệp giữa hai tiến trình cụ thể) và truyền thông đa điểm (gửi thông điệp đến nhiều tiến trình, bao gồm các kiểu 1-to-many, many-to-1, many-to-many). Do đó, cả hai tùy chọn đều đúng."
+   },
+   {
+     "question": "Nhược điểm của các kỹ thuật Socket hay RMI/RPC khi sử dụng để xây dựng các ứng dụng phân tán là gì?",
+     "options": [
+       "Thông thường, tiến trình gửi yêu cầu sẽ bị chặn thực thi cho đến khi nhận được kết quả trả về",
+       "Cả hai kỹ thuật này đều yêu cầu tiến trình gửi phải biết thông tin (địa chỉ IP, cổng) của tiến trình nhận thì mới thực hiện truyền thông được",
+       "Các kỹ thuật này luôn làm chậm quá trình truyền thông giữa hai tiến trình gửi và tiến trình nhận",
+       "Để thực hiện được quá trình truyền thông, tiến trình gửi và tiến trình nhận bắt buộc phải thực thi tại cùng một thời điểm"
+     ],
+     "answer": [1, 4],
+     "explanation": "Socket và RMI/RPC thường chặn tiến trình gửi cho đến khi nhận được phản hồi (tùy chọn 1), và chúng yêu cầu cả hai tiến trình phải hoạt động đồng thời để truyền thông thành công (tùy chọn 4). Tuy nhiên, tùy chọn 2 không phải nhược điểm vì việc biết địa chỉ IP/cổng là yêu cầu thiết kế, và tùy chọn 3 không đúng vì tốc độ truyền thông không phải lúc nào cũng chậm."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG về MOM (Message-Oriented Middleware)? <img src='img/question43.png' alt='MOM Illustration'>",
+     "options": [
+       "Luôn có một thành phần trung gian, thường được gọi là Messaging Server / Broker, để điều phối quá trình gửi và nhận các thông điệp",
+       "Để thực hiện được quá trình truyền thông điệp, hai tiến trình gửi và nhận bắt buộc phải thực thi tại cùng một thời điểm",
+       "Các hệ thống dựa trên MOM cho phép việc truyền thông diễn ra thông qua trao đổi bất đồng bộ các thông điệp, i.e., phía gửi và phía nhận có thể không cần hoạt động tại thời điểm truyền thông",
+       "Phía gửi và phía nhận bắt buộc phải biết đến sự tồn tại của nhau (ví dụ: thông tin về địa chỉ IP, cổng, ...) thì quá trình truyền thông điệp mới diễn ra được"
+     ],
+     "answer": [1, 3],
+     "explanation": "MOM sử dụng Messaging Server/Broker để điều phối thông điệp (tùy chọn 1) và hỗ trợ truyền thông bất đồng bộ, cho phép gửi/nhận không cần đồng thời (tùy chọn 3). Tùy chọn 2 sai vì MOM không yêu cầu đồng thời, và tùy chọn 4 sai vì các tiến trình không cần biết trực tiếp thông tin của nhau."
+   },
+   {
+     "question": "Những phát biểu nào là ĐÚNG về mô hình truyền thông điệp Xuất bản - Đăng ký (Publish/Subscribe hay Pub/Sub), được hỗ trợ bởi các nền tảng MOM, như hình minh họa dưới đây? <img src='img/question44.png' alt='Pub/Sub Illustration'>",
+     "options": [
+       "Trong mô hình này, một thông điệp chỉ được gửi đến duy nhất một tiến trình nhận",
+       "Trong mô hình này, đôi khi không cần đến thành phần Messaging Server",
+       "Trong mô hình này, một chủ đề (topic), khi đã có trên Messaging Server, sẽ được gửi đến tất cả tiến trình đăng ký chủ đề này",
+       "Mô hình này cho phép phía gửi và phía nhận có thể không cần hoạt động cùng một thời điểm mà quá trình truyền thông điệp vẫn diễn ra được"
+     ],
+     "answer": [3, 4],
+     "explanation": "Trong Pub/Sub, thông điệp được gửi đến tất cả các tiến trình đăng ký topic (tùy chọn 3), và truyền thông có thể bất đồng bộ (tùy chọn 4). Tùy chọn 1 sai vì thông điệp không chỉ gửi đến một tiến trình, và tùy chọn 2 sai vì Messaging Server là cần thiết."
+   },
+   {
+     "question": "Giả sử: P_i là một tiến trình trong hệ thống phân tán; e_i, f_i, g_i biểu thị các sự kiện đã xảy ra trên các tiến trình. Ký hiệu e → f biểu thị sự kiện e đã xảy ra trước sự kiện f trong mô hình đã-xảy-ra-trước. Ký hiệu e || f biểu thị sự kiện e xảy ra 'đồng thời' với sự kiện f, tức là chúng ta không có đủ thông tin để kết luận sự kiện nào đã xảy ra trước. Cho sơ đồ tiến trình - thời gian dưới đây, những mối liên hệ giữa các sự kiện nào là chính xác? <img src='img/question45.png' alt='Process-Time Diagram'>",
+     "options": [
+       "e1 -> f4",
+       "f2 -> g4",
+       "f2 -> g2",
+       "e4 -> f4",
+       "e3 -> g4",
+       "e1 || g3"
+     ],
+     "answer": [1, 2, 5, 6],
+     "explanation": "Không có hình ảnh sơ đồ tiến trình-thời gian, nhưng dựa trên câu trả lời cung cấp (tùy chọn 1, 2, 5, 6), các mối quan hệ này được giả định đúng theo mô hình đã-xảy-ra-trước. Tùy chọn 1, 2, 5 biểu thị thứ tự xảy ra, và tùy chọn 6 biểu thị đồng thời. Tùy chọn 3 và 4 không đúng theo ngữ cảnh."
+   },
+   {
+     "question": "Những phát biểu nào là ĐÚNG về mô hình truyền thông điệp Điểm-tới-Điểm (Point-to-Point), được hỗ trợ bởi các nền tảng MOM, như hình minh họa dưới đây? <img src='img/question46.png' alt='Point-to-Point Illustration'>",
+     "options": [
+       "Messaging Server sử dụng queue làm nơi lưu trữ. Queue giữ lại các thông điệp cho đến khi tiến trình đích nhận được thông điệp hoặc đến thời gian timeout được thiết lập.",
+       "Trong mô hình này, một thông điệp chỉ được gửi đến duy nhất một tiến trình nhận",
+       "Trong mô hình này, cùng một thông điệp có thể được gửi đến nhiều tiến trình nhận",
+       "Trong mô hình này, đôi khi không cần đến thành phần Messaging Server",
+       "Mô hình này cho phép các tiến trình phía gửi và phía nhận có thể không cần hoạt động cùng một thời điểm mà quá trình truyền thông điệp vẫn diễn ra được"
+     ],
+     "answer": [1, 2, 5],
+     "explanation": "Trong Point-to-Point, thông điệp được lưu trong queue (tùy chọn 1), gửi đến duy nhất một tiến trình nhận (tùy chọn 2), và hỗ trợ bất đồng bộ (tùy chọn 5). Tùy chọn 3 sai vì thông điệp không gửi đến nhiều tiến trình, và tùy chọn 4 sai vì cần Messaging Server."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là ĐÚNG về mô hình đã-xảy-ra-trước (happened-before model), kí hiệu →, được đề xuất bởi Leslie Lamport nhằm giải quyết bài toán đồng bộ đồng hồ trong hệ phân tán?",
+     "options": [
+       "Trong mô hình đã-xảy-ra-trước, nếu tồn tại một sự kiện g sao cho e → g và g → f, thì e → f",
+       "Trong mô hình đã-xảy-ra-trước, các tiến trình luôn biết được thứ tự tổng thể trên tập các sự kiện đã xảy ra trong hệ phân tán",
+       "Trong mô hình đã-xảy-ra-trước, nếu e là sự kiện gửi của một thông điệp và f là sự kiện nhận của cùng thông điệp đó, thì e → f",
+       "Trong mô hình đã-xảy-ra-trước, nếu e và f là hai sự kiện xảy ra trên cùng một tiến trình và e xảy ra trước f, thì e → f",
+       "Trong mô hình đã-xảy-ra-trước, các tiến trình chỉ có thể biết được một thứ tự bộ phận trên tập các sự kiện đã xảy ra trong hệ phân tán"
+     ],
+     "answer": [1, 3, 4, 5],
+     "explanation": "Mô hình đã-xảy-ra-trước thỏa mãn tính bắc cầu (tùy chọn 1), gửi trước nhận (tùy chọn 3), thứ tự trong cùng tiến trình (tùy chọn 4), và chỉ cung cấp thứ tự bộ phận (tùy chọn 5). Tùy chọn 2 sai vì không thể biết thứ tự tổng thể."
+   },
+   {
+     "question": "Cho sơ đồ tiến trình - thời gian, hoặc sơ đồ đã-xảy-ra-trước, như hình vẽ dưới đây. Sử dụng thuật toán đồng hồ vector để đánh dấu thời gian của các trạng thái cho các tiến trình. Dấu thời gian cho trạng thái cuối cùng của tiến trình P2, sau khi các sự kiện cuối cùng xảy ra, là gì? <img src='img/question48.png' alt='Vector Clock Diagram'>",
+     "options": [
+       "(4,2,0)",
+       "(3,5,0)",
+       "(0,1,3)",
+       "(3,4,0)"
+     ],
+     "answer": [2],
+     "explanation": "Không có hình ảnh sơ đồ, nhưng dựa trên câu trả lời (tùy chọn 2), dấu thời gian vector cho trạng thái cuối của P2 là (3,5,0), phù hợp với thuật toán đồng hồ vector."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là đúng về thuật toán đồng hồ vector cho bài toán đồng bộ đồng hồ trong hệ thống phân tán? với n là số lượng tiến trình trong hệ thống phân tán",
+     "options": [
+       "Một đồng hồ vector v là một ánh xạ từ tập trạng thái S đến N^n (vector của các số tự nhiên) với rằng buộc sau: ∀s,t ∈S:s→t ⇔ s.v < t.v",
+       "Thuật toán đồng hồ vector khắc phục được nhược điểm của thuật toán đồng hồ logic với việc cung cấp thông tin hoàn chỉnh (hai chiều) về mối quan hệ đã-xảy-ra-trước",
+       "Một đồng hồ vector v là một ánh xạ từ tập trạng thái S đến N^n (vector của các số tự nhiên) với rằng buộc sau: ∀s,t ∈S:s→t ⇒ s.v < t.v"
+     ],
+     "answer": [1, 2],
+     "explanation": "Đồng hồ vector ánh xạ trạng thái sang vector số tự nhiên với điều kiện s→t ⇔ s.v < t.v (tùy chọn 1), và cải thiện đồng hồ logic bằng cách cung cấp thông tin hai chiều (tùy chọn 2). Tùy chọn 3 sai vì điều kiện chỉ đúng một chiều."
+   },
+   {
+     "question": "Những phát biểu nào sau đây là đúng về thuật toán đồng hồ logic, dùng để lưu vết mối quan hệ thứ tự giữa các sự kiện đã xảy ra trong một hệ thống phân tán? Ký hiệu e → f biểu thị sự kiện e xảy ra trước sự kiện f trong mô hình đã-xảy-ra-trước.",
+     "options": [
+       "Ký hiệu C(e), C(f) là hai số nguyên dương được gán cho hai sự kiện e, f đã xảy ra, nếu C(e) < C(f) thì chúng ta có thể kết luận rằng e → f",
+       "Trong thuật toán này, mỗi sự kiện hoặc trạng thái của một tiến trình được gán với một số nguyên dương để biểu thị dấu thời gian của sự kiện hoặc trạng thái đó",
+       "Giả sử E là tập các sự kiện đã xảy ra, đồng hồ logic được định nghĩa là một ánh xạ C từ tập E sang tập các số nguyên dương N, sao cho: ∀e, f∈E: e → f ⇒ C(e) < C(f)"
+     ],
+     "answer": [2, 3],
+     "explanation": "Đồng hồ logic gán số nguyên dương cho mỗi sự kiện hoặc trạng thái (tùy chọn 2) và đảm bảo rằng nếu e → f thì C(e) < C(f) (tùy chọn 3). Tuy nhiên, tùy chọn 1 sai vì C(e) < C(f) không đủ để kết luận e → f, do đồng hồ logic chỉ đảm bảo điều kiện một chiều (nếu e → f thì C(e) < C(f), nhưng ngược lại không nhất thiết đúng)."
+   }
+ ]

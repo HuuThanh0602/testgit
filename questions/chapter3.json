@@ -1,0 +1,110 @@
+[
+   {
+     "question": "Thuật toán của Peterson cho bài toán loại trừ lẫn nhau trong hệ thống đồng thời thỏa mãn những thuộc tính nào dưới đây? <img src='img/question21.png' alt='Thuật toán Peterson'>",
+     "options": [
+       "Có thể hoạt động được với số lượng luồng bất kỳ lớn hơn 1",
+       "Tiến triển (progress): nếu một hoặc nhiều luồng đang cố gắng để đi vào CS và không có luồng nào bên trong CS, thì ít nhất một trong các luồng sẽ thành công trong việc đi vào CS",
+       "Không chết đói (starvation-freedom): nếu một luồng đang cố gắng đi vào CS, thì luồng đó cuối cùng phải đi vào CS thành công",
+       "Loại trừ lẫn nhau (mutual exclusion): hai luồng bất kỳ không thể ở trong khu vực quan trọng (CS) tại cùng một thời điểm"
+     ],
+     "answer": [1, 2, 3],
+     "explanation": "Thuật toán Peterson thỏa mãn tiến trình, không chết đói và loại trừ lẫn nhau, nhưng chỉ hoạt động với 2 luồng."
+   },
+   {
+     "question": "Ưu điểm của việc sử dụng các cấu trúc đồng bộ (như Semaphore, Monitor) cho bài toán loại trừ lẫn nhau trong các chương trình đồng thời, so với các thuật toán Peterson, Bakery là gì?",
+     "options": [
+       "Giải quyết được vấn đề bận chờ (busy-waiting), không gây lãng phí chu trình CPU",
+       "Không có ưu điểm gì hơn so với các thuật toán đó",
+       "Thời gian chạy chương trình nhanh hơn"
+     ],
+     "answer": [0],
+     "explanation": "Semaphore và Monitor giúp tránh bận chờ, tối ưu hóa việc sử dụng CPU."
+   },
+   {
+     "question": "Trong bài toán Sản xuất và Tiêu thụ, với hai luồng Producer và Consumer hoạt động đồng thời, chúng ta cần đảm bảo những điều kiện đồng bộ nào?",
+     "options": [
+       "Điều kiện loại trừ lẫn nhau giữa việc luồng Producer thực hiện việc ghi dữ liệu vào bộ đệm và việc luồng Consumer thực hiện việc lấy dữ liệu ra khỏi bộ đệm",
+       "Điều kiện đồng bộ cho phép hai luồng Producer và Consumer cùng thực hiện việc ghi và lấy dữ liệu đồng thời",
+       "Điều kiện đồng bộ khi bộ đệm rỗng, luồng Consumer phải dừng lại",
+       "Điều kiện đồng bộ khi bộ đệm đầy, luồng Producer phải dừng lại"
+     ],
+     "answer": [0, 2, 3],
+     "explanation": "Cần loại trừ lẫn nhau, dừng Consumer khi bộ đệm rỗng và dừng Producer khi bộ đệm đầy."
+   },
+   {
+     "question": "Xét một giải pháp cho bài toán Sản xuất và Tiêu thụ, sử dụng cấu trúc đồng bộ hoá Semaphore, như Hình dưới. Semaphore nhị phân mutex được dùng với mục đích gì? <img src='img/question24.png' alt='Semaphore mutex'>",
+     "options": [
+       "Đảm bảo quá trình ghi dữ liệu và lấy dữ liệu được thực thi một cách nguyên tử (tức là loại trừ lẫn nhau)",
+       "Cho phép quá trình ghi dữ liệu và lấy dữ liệu được thực thi đồng thời",
+       "Khoá luồng Producer",
+       "Khoá luồng Consumer"
+     ],
+     "answer": [0],
+     "explanation": "Mutex đảm bảo chỉ một luồng (Producer hoặc Consumer) truy cập bộ đệm cùng lúc."
+   },
+   {
+     "question": "Trong bài toán Người đọc và Người ghi, với n > 1 luồng đọc và m > 1 luồng ghi hoạt động đồng thời, chúng ta cần đảm bảo những điều kiện đồng bộ nào sau đây?",
+     "options": [
+       "Rằng buộc Đọc-Đọc: Hai luồng đọc không được truy cập đồng thời vào CSDL chia sẻ",
+       "Rằng buộc Đọc-Ghi: Một luồng đọc và một luồng ghi không được truy cập đồng thời vào CSDL chia sẻ",
+       "Rằng buộc Đọc-Đọc: Nhiều luồng đọc có thể đồng thời truy cập CSDL chia sẻ",
+       "Rằng buộc Ghi-Ghi: Hai luồng ghi không được truy cập đồng thời vào CSDL chia sẻ"
+     ],
+     "answer": [1, 2, 3],
+     "explanation": "Nhiều luồng đọc có thể đồng thời, nhưng không đồng thời với ghi, và không có hai luồng ghi cùng lúc."
+   },
+   {
+     "question": "Xét một giải pháp cho bài toán Sản xuất và Tiêu thụ, sử dụng cấu trúc đồng bộ hoá Semaphore, như Hình dưới. Câu lệnh isFull.V() được thực hiện bởi luồng Consumer được dùng với mục đích gì? <img src='img/question26.png' alt='Semaphore isFull'>",
+     "options": [
+       "Đánh thức luồng Consumer dậy để tiếp tục thực thi công việc, nếu luồng này đang bị khoá trong hàng đợi của semaphore isEmpty",
+       "Khoá luồng Consumer",
+       "Khoá luồng Producer",
+       "Đánh thức luồng Producer để tiếp tục thực thi công việc, nếu luồng này đang bị khoá trong hàng đợi của semaphore isFull"
+     ],
+     "answer": [3],
+     "explanation": "isFull.V() đánh thức Producer khi bộ đệm không còn đầy sau khi Consumer lấy dữ liệu."
+   },
+   {
+     "question": "Xét một giải pháp cho bài toán Sản xuất và Tiêu thụ, sử dụng cấu trúc đồng bộ hoá Semaphore, như Hình dưới. Câu lệnh isEmpty.V() được thực hiện bởi luồng Producer được dùng với mục đích gì? <img src='img/question27.png' alt='Semaphore isEmpty'>",
+     "options": [
+       "Đánh thức luồng Consumer dậy để tiếp tục thực thi công việc, nếu luồng này đang bị khoá trong hàng đợi của semaphore isEmpty",
+       "Khoá luồng Producer",
+       "Đánh thức luồng Producer để tiếp tục thực thi công việc, nếu luồng này đang bị khoá trong hàng đợi của semaphore isFull",
+       "Khoá luồng Consumer"
+     ],
+     "answer": [0],
+     "explanation": "isEmpty.V() đánh thức Consumer khi bộ đệm có dữ liệu sau khi Producer ghi."
+   },
+   {
+     "question": "Cho đoạn mã giả sau, cài đặt giải pháp, sử dụng cấu trúc đồng bộ hoá Monitor, cho bài toán Người đọc - Người ghi, trong đó có n > 2 luồng đọc và m > 2 luồng ghi, cùng tương tác với cơ sở dữ liệu chia sẻ. Nếu các khối lệnh cho việc << GHI DỮ LIỆU VÀO DB>> và << ĐỌC DỮ LIỆU TỪ DB>> được chuyển vào bên trong Monitor (trong khối synchronized) thì điều gì sẽ xảy ra? <img src='img/question28.png' alt='Monitor Reader-Writer'>",
+     "options": [
+       "Việc này cho phép nhiều luồng đọc được thực hiện việc đọc dữ liệu từ cơ sở dữ liệu chia sẻ tại một thời điểm bất kỳ",
+       "Việc này sẽ chỉ cho phép nhiều nhất một luồng đọc được thực hiện việc đọc dữ liệu từ cơ sở dữ liệu chia sẻ tại một thời điểm bất kỳ -> không thoả mãn được yêu cầu cho phép nhiều luồng đọc cùng đọc cơ sở dữ liệu chia sẻ",
+       "Thuật toán vẫn hoạt động đúng, thoả mãn 3 yêu cầu đồng bộ của bài toán Người đọc - Người ghi"
+     ],
+     "answer": [1],
+     "explanation": "Chuyển vào synchronized sẽ giới hạn chỉ một luồng (đọc hoặc ghi) tại một thời điểm, vi phạm yêu cầu nhiều luồng đọc đồng thời."
+   },
+   {
+     "question": "Xét cài đặt của một giải pháp cho bài toán Người đọc - Người ghi, sử dụng cấu trúc đồng bộ hoá Semaphore, như Hình dưới. Mục đích của dòng lệnh if (numberReaders == 0) wlock.V() được gọi bởi một luồng đọc là gì? <img src='img/question29.png' alt='Semaphore Reader-Writer'>",
+     "options": [
+       "Nếu đây là luồng đọc cuối cùng đã thực hiện xong việc đọc CSDL chia sẻ thì luồng đọc này sẽ đánh thức một luồng đọc bất kỳ đang bị khoá dậy để thực hiện tiếp công việc",
+       "Nếu đây là luồng đọc cuối cùng đã thực hiện xong việc đọc CSDL chia sẻ thì luồng đọc này sẽ đánh thức một luồng ghi bất kỳ đang bị khoá dậy để thực hiện tiếp công việc",
+       "Khoá một luồng đọc đang muốn vào khu vực quan trọng",
+       "Khoá một luồng ghi đang muốn vào khu vực quan trọng"
+     ],
+     "answer": [1],
+     "explanation": "Khi không còn luồng đọc, wlock.V() đánh thức luồng ghi bị chặn."
+   },
+   {
+     "question": "Cho đoạn mã giả của chương trình đa luồng để giải bài toán Sản xuất và Tiêu thụ (với 1 luồng Sản xuất và 1 luồng Tiêu thụ), sử dụng monitor trong Java, như Hình dưới. Phương thức notify() được gọi bởi luồng Producer, dùng với mục đích gì? <img src='img/question30.png' alt='Monitor Producer-Consumer'>",
+     "options": [
+       "Không có mục đích gì",
+       "Đánh thức luồng Tiêu thụ (Consumer)",
+       "Đánh thức luồng Sản xuất (Producer)",
+       "Đánh thức cả 2 luồng Sản xuất và Tiêu thụ"
+     ],
+     "answer": [1],
+     "explanation": "notify() của Producer đánh thức Consumer khi có dữ liệu mới trong bộ đệm."
+   }
+ ]

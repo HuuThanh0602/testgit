@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Ứng dụng Trắc nghiệm</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <style>
+      body {
+         background: linear-gradient(135deg, #f0f2f5, #e0e7ff);
+         font-family: 'Arial', sans-serif;
+         display: flex;
+         flex-direction: column;
+         min-height: 100vh;
+      }
+
+      #main-container {
+         display: flex;
+         flex-grow: 1;
+         justify-content: flex-start;
+         align-items: flex-start;
+         padding: 20px 0;
+         width: 99%;
+         position: relative;
+   
+      }
+
+      #quiz-container,
+      #result-container {
+         border-radius: 12px;
+         overflow: hidden;
+         transition: all 0.3s ease;
+         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+         background: white;
+         max-width: 100%;
+         width: 82%;
+         /* Giữ 85% cho quiz-container */
+         margin-left: 10px;
+         /* Căn sát trái */
+         margin-bottom: 20px;
+      }
+
+      #question {
+         background: linear-gradient(135deg, #eef2f7, #d3e0ea);
+         border-radius: 8px;
+         padding: 20px;
+         min-height: 120px;
+         font-size: 1.2em;
+         word-wrap: break-word;
+         overflow-wrap: break-word;
+         margin-bottom: 20px;
+         width: 100%;
+         margin-left: 0;
+         text-align: left;
+      }
+
+      #options {
+         max-height: 300px;
+         overflow-y: auto;
+         padding: 10px;
+         margin-bottom: 15px;
+      }
+
+      #options .flex.items-center {
+         background-color: #f9f9f9;
+         border-radius: 8px;
+         padding: 12px;
+         margin-bottom: 10px;
+         transition: background-color 0.3s ease;
+         min-height: 40px;
+      }
+
+      #options .flex.items-center:hover {
+         background-color: #e6e6e6;
+      }
+
+      button {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 6px;
+         padding: 10px 15px;
+         transition: all 0.3s ease;
+         min-width: 120px;
+         border-radius: 8px;
+      }
+
+      button:disabled {
+         cursor: not-allowed;
+         opacity: 0.6;
+      }
+      
+
+      @media (max-width: 760px) {
+
+         #quiz-container,
+         #result-container {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+         }
+
+         #question {
+            font-size: 1em;
+            padding: 10px;
+            min-height: 80px;
+            width: 100%;
+            margin-left: 0;
+            text-align: left;
+         }
+
+         #options {
+            max-height: 200px;
+            padding: 5px;
+         }
+
+         #options .flex.items-center {
+            padding: 8px;
+            margin-bottom: 6px;
+            min-height: 35px;
+         }
+
+         button {
+            padding: 6px 10px;
+            min-width: 80px;
+         }
+
+         button .text {
+            display: none;
+         }
+
+         #mini-map {
+            display: none;
+         }
+         
+      }
+
+      @media (min-width: 641px) {
+         button .icon {
+            margin-right: 8px;
+         }
+
+         #mini-map {
+            width: 15%;
+            /* Sử dụng 15% còn lại */
+            min-width: 200px;
+            /* Đảm bảo mini-map có kích thước tối thiểu */
+            margin-left: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 400px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: absolute;
+            right: 0;
+            /* Đặt sát mép phải */
+            top: 20px;
+         }
+
+         .mini-map-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #d1d5db;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+         }
+
+         .mini-map-btn.correct {
+            background-color: #10b981;
+            color: white;
+         }
+
+         .mini-map-btn.incorrect {
+            background-color: #ef4444;
+            color: white;
+         }
+      }
+
+      /* Thêm style cho dropdown chọn chương */
+      #chapter-select {
+         padding: 10px;
+         border-radius: 8px;
+         border: 1px solid #d1d5db;
+         background-color: white;
+         margin-right: 15px;
+         min-width: 180px;
+         height: 40px;
+      }
+
+      #load-chapter-btn {
+         padding: 10px 15px;
+         background-color: #4b5563;
+         color: white;
+         border-radius: 8px;
+         transition: background-color 0.3s ease;
+         height: 40px;
+      }
+
+      #load-chapter-btn:hover {
+         background-color: #6b7280;
+      }
+
+      /* Căn chỉnh dropdown và nút */
+      .chapter-controls {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         margin-bottom: 20px;
+      }
+      
+   </style>
+</head>
+
+<body class="font-sans min-h-screen flex flex-col">
+   <header
+      class="bg-gradient-to-r from-blue-700 to-blue-500 text-white p-4 shadow-lg flex justify-between items-center">
+      <div class="flex items-center">
+         <span class="text-2xl font-bold ml-4">Ôn Tập Lập Trình Phân Tán</span>
+      </div>
+      <button id="reset-btn" class="bg-red-600 px-3 py-1 text-white rounded-full hover:bg-red-700 shadow-md">
+         <span class="icon"><i class="fas fa-redo"></i></span>
+         <span class="text">Reset</span>
+      </button>
+   </header>
+
+   <main id="main-container" class="flex-grow flex items-center justify-center relative">
+      <div id="quiz-container"
+         class="rounded-lg p-6 w-full max-w-2xl mx-auto transform transition-all duration-300 hover:shadow-lg">
+         <div class="chapter-controls">
+            <select id="chapter-select" class="p-2 border rounded mr-2">
+               <option value="1">Chương 1 (Câu 1-10)</option>
+               <option value="2">Chương 2 (Câu 11-20)</option>
+               <option value="3">Chương 3 (Câu 21-30)</option>
+               <option value="4">Chương 4 (Câu 31-40)</option>
+               <option value="5">Chương 5 (Câu 41-50)</option>
+               <option value="6">Chương 6 (Câu 51-60)</option>
+            </select>
+            <button id="load-chapter-btn" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+               <span class="icon"><i class="fas fa-download"></i></span>
+               <span class="text">Tải chương</span>
+            </button>
+         </div>
+
+         <div id="question" class="text-lg font-semibold mb-4 rounded-lg text-gray-800"></div>
+         <div id="options" class="space-y-3"></div>
+         <div id="explanation" class="mt-4 text-gray-600 hidden"></div>
+         <div class="mt-6 flex justify-between">
+            <button id="prev-btn"
+               class="bg-gray-300 text-gray-700 px-5 py-2 rounded-full hover:bg-gray-400 transition duration-300"
+               disabled>
+               <span class="icon"><i class="fas fa-arrow-left"></i></span>
+               <span class="text">Câu trước</span>
+            </button>
+            <button id="check-btn"
+               class="bg-green-600 px-5 py-2 text-white rounded-full hover:bg-green-700 transition duration-300">
+               <span class="icon"><i class="fas fa-check"></i></span>
+               <span class="text">Kiểm tra</span>
+            </button>
+            <button id="next-btn"
+               class="bg-blue-600 px-5 py-2 text-white rounded-full hover:bg-blue-700 transition duration-300" disabled>
+               <span class="icon"><i class="fas fa-arrow-right"></i></span>
+               <span class="text">Câu tiếp</span>
+            </button>
+         </div>
+      </div>
+      <div id="result-container"
+         class="mt-6 rounded-lg p-6 w-full max-w-2xl mx-auto hidden transform transition-all duration-300 hover:shadow-lg">
+         <h2 class="text-2xl font-bold text-green-600 mb-4">Kết quả</h2>
+         <div id="result" class="text-lg font-bold text-gray-800"></div>
+         <button id="restart-btn"
+            class="mt-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">
+            <span class="icon"><i class="fas fa-redo"></i></span>
+            <span class="text">Làm lại</span>
+         </button>
+      </div>
+      <div id="mini-map" class="hidden md:block">
+      </div>
+   </main>
+
+   <footer class="bg-gray-800 text-white p-4 text-center">
+      <p class="text-sm">Developed by Nguyen Huu Thanh © 2025</p>
+   </footer>
+
+   <script src="quiz.js"></script>
+</body>
+
+</html>
