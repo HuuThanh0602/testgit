@@ -10,7 +10,7 @@
      "explanation": "Trong hệ thống phân tán, các tiến trình giao tiếp qua mạng bằng cách gửi và nhận thông điệp, không sử dụng bộ nhớ chia sẻ."
    },
    {
-     "question": "Các luồng (Thread) trong một hệ thống đồng thời dựa trên cơ chế khóa, chạy trên một máy tính gồm nhiều bộ vi xử lý, giao tiếp với nhau bằng cách nào?",
+     "question": "Các luồng (Thread) trong một hệ thống đồng thời dựa trên cơ chế khóa, chạy trên <strong> một máy tính</strong> gồm nhiều bộ vi xử lý, giao tiếp với nhau bằng cách nào?",
      "options": [
        "Sử dụng mô hình bộ nhớ chia sẻ",
        "Không sử dụng mô hình bộ nhớ chia sẻ, cũng như mô hình truyền thông điệp qua mạng truyền thông",

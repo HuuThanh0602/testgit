@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => {
         console.error('Lỗi khi tải câu hỏi:', error);
-        questionElement.textContent = 'Lỗi: Không thể tải câu hỏi. Vui lòng kiểm tra file JSON hoặc chạy trên server cục bộ.';
+        questionElement.textContent = 'Lỗi: Không thể tải câu hỏi.';
         optionsElement.innerHTML = '';
       });
   }
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
       label.textContent = option;
       label.className = 'text-gray-800 flex-1 cursor-pointer';
       if (input.checked && isChecked) {
-        label.classList.add('font-bold', 'text-blue-600');
+        label.classList.add('font-bold');
       }
     
       if (isChecked) {
@@ -148,17 +148,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const question = questions[index];
     const userAnswer = userAnswers[index] || [];
     const isCorrect = userAnswer.sort().join() === question.answer.sort().join();
-    explanationElement.textContent = `Giải thích: ${question.explanation || 'Không có giải thích'} (${isCorrect ? 'Đúng' : 'Sai'})`;
+  
+    const explanationHTML = `
+      <div class="p-3 rounded-lg border ${isCorrect ? 'border-green-500 bg-green-50 text-green-700' : 'border-red-500 bg-red-50 text-red-700'}">
+        <p class="font-semibold mb-2">${isCorrect ? '✅ Bạn đã chọn đúng!' : '❌ Bạn đã chọn sai!'}</p>
+        <p><strong>Giải thích:</strong> ${question.explanation || 'Không có giải thích.'}</p>
+      </div>
+    `;
+  
+    explanationElement.innerHTML = explanationHTML;
     explanationElement.classList.remove('hidden');
-    explanationElement.classList.toggle('text-green-600', isCorrect);
-    explanationElement.classList.toggle('text-red-600', !isCorrect);
+  
     checkedStatuses[index] = true;
     localStorage.setItem('checkedStatuses', JSON.stringify(checkedStatuses));
+  
     if (reload) {
       loadQuestion(index);
     }
+  
     updateMiniMap();
   }
+  
 
   function showResult() {
     quizContainer.classList.add('hidden');
