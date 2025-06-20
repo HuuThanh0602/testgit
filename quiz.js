@@ -76,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Sao chép và xáo trộn mảng options
     const shuffledOptions = shuffleArray([...question.options]);
     const optionIndexMap = {};
     question.options.forEach((opt, i) => {
@@ -86,22 +85,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     shuffledOptions.forEach((option, i) => {
       const div = document.createElement('div');
-      div.className = 'flex items-center p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition duration-200';
+      div.className = 'flex items-center p-2 bg-gray-800 rounded-lg hover:bg-gray-100 transition duration-200';
       const input = document.createElement('input');
       input.type = 'checkbox';
       input.id = `option-${i}`;
       input.className = 'mr-2';
       const originalIndex = optionIndexMap[i];
       input.checked = userAnswers[index]?.includes(originalIndex) || false;
+    
+      const label = document.createElement('label');
+      label.htmlFor = `option-${i}`;
+      label.textContent = option;
+      label.className = 'text-gray-800 flex-1 cursor-pointer';
+      if (input.checked && isChecked) {
+        label.classList.add('font-bold', 'text-blue-600');
+      }
+    
       if (isChecked) {
         input.disabled = true;
       } else {
         input.addEventListener('change', () => saveAnswer(index, i, originalIndex));
       }
-      const label = document.createElement('label');
-      label.htmlFor = `option-${i}`;
-      label.textContent = option;
-      label.className = 'text-gray-800 flex-1 cursor-pointer';
+    
       label.addEventListener('click', (e) => {
         if (!isChecked) {
           e.preventDefault();
@@ -113,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
       div.appendChild(label);
       optionsElement.appendChild(div);
     });
-
     if (isChecked && userAnswers[index]) {
       checkAnswer(index, false);
     } else {
@@ -257,6 +261,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loadQuestions(chapter);
   });
 
-  // Tải chương mặc định khi trang mở
-  loadQuestions(1); // Mặc định tải chương 1
+  loadQuestions(1); 
 });
